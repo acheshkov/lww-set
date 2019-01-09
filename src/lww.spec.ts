@@ -18,8 +18,8 @@ test("delete on empty set", (t) => {
 test("lookup on empty set", (t) => {
     let set = new LWWSet<number>();
     t.notThrows(() => {
-        set.lookup(10);
-    })
+        t.false(set.lookup(10));
+    });
 });
 
 test("insert-lookup", (t) => {
