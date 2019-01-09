@@ -42,7 +42,7 @@ export class LWWSet<T> {
     }
     
     /**
-     * Union of two sets. O(l_1 + l_2)
+     * Union of two sets. O(n + m)
      * @param set 
      */
     merge(set: LWWSet<T>): LWWSet<T>{
