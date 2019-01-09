@@ -7,4 +7,5 @@
 Clone and run
 
 `npm install`
+
 `npm test`
