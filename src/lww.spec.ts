@@ -5,13 +5,20 @@ import {LWWSet} from './lww';
 test("create set", (t) => {
     t.notThrows(() => {
         new LWWSet<number>();
-    })
+    });
 });
 
-test("delete not existing", (t) => {
+test("delete on empty set", (t) => {
     let set = new LWWSet<number>();
     t.notThrows(() => {
         set.remove(5);
+    });
+});
+
+test("lookup on empty set", (t) => {
+    let set = new LWWSet<number>();
+    t.notThrows(() => {
+        set.lookup(10);
     })
 });
 
@@ -28,11 +35,20 @@ test("insert-delete-lookup", (t) => {
     t.false(set.lookup(2));
 });
 
+
 test("insert-delete-insert-lookup", (t) => {
     let set = new LWWSet<number>();
     set.insert(2, 101);
     set.remove(2, 102);
     set.insert(2, 103);
+    t.true(set.lookup(2));
+});
+
+test("insert-delete-insert-lookup-unsync", (t) => {
+    let set = new LWWSet<number>();
+    set.insert(2, 101);
+    set.insert(2, 103);
+    set.remove(2, 102);
     t.true(set.lookup(2));
 });
 
@@ -50,6 +66,14 @@ test("insert-delete-insert-lookup-biased-del", (t) => {
     set.remove(2, 102);
     set.insert(2, 102);
     t.false(set.lookup(2));
+});
+
+test("merge empty sets", (t) => {
+    let set_1 = new LWWSet<number>();
+    let set_2 = new LWWSet<number>();
+    t.notThrows(() => {
+        set_1.merge(set_2);
+    });
 });
 
 test("merge not intersected", (t) => {
