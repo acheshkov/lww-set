@@ -1,0 +1,21 @@
+{
+  "name": "goodnotes",
+  "version": "1.0.0",
+  "description": "crds",
+  "main": "main.ts",
+  "scripts": {
+    "test": "tsc && ava"
+  },
+  "author": "Anton Cheshkov",
+  "license": "ISC",
+  "dependencies": {
+    "typescript": "^3.2.2"
+  },
+  "devDependencies": {
+    "ava": "^1.0.1"
+  },
+  "ava": {
+    "files": ["build/**/*.spec.js"],
+    "verbose": true
+  }
+}
