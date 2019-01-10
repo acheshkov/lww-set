@@ -52,7 +52,7 @@ test("insert-delete-insert-lookup-unsync", (t) => {
     t.true(set.lookup(2));
 });
 
-test("insert-delete-commutative", (t) => {
+test("insert-delete-commutative-by-timestamp", (t) => {
     let set_1 = new LWWSet<number>();
     let set_2 = new LWWSet<number>();
     set_1.insert(2, 101);
