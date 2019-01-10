@@ -52,6 +52,18 @@ test("insert-delete-insert-lookup-unsync", (t) => {
     t.true(set.lookup(2));
 });
 
+test("insert-delete-commutative", (t) => {
+    let set_1 = new LWWSet<number>();
+    let set_2 = new LWWSet<number>();
+    set_1.insert(2, 101);
+    set_1.remove(2, 102);
+
+    set_2.remove(2, 102);
+    set_2.insert(2, 101);
+    
+    t.true(set_1.lookup(2) == set_2.lookup(2));
+});
+
 test("insert-delete-insert-lookup-biased-add", (t) => {
     let set = new LWWSet<number>('add');
     set.insert(2, 101);
