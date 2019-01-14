@@ -140,3 +140,39 @@ test("merge with deletion", (t) => {
         t.false(set_3.lookup(v));
     });
 });
+
+
+test("set to list has correct type", (t) => {
+    let set = new LWWSet<number>();
+    t.true(set.to_list() instanceof Array);
+});
+
+test("empty set produces empty list", (t) => {
+    let set = new LWWSet<number>();
+    t.true(set.to_list().length === 0)
+});
+
+
+test("to_list returns all inserted elements ", (t) => {
+    let to_insert = [1,2,3,4,5];
+    let set = new LWWSet<number>();
+    to_insert.forEach(v => set.insert(v));
+    t.deepEqual(to_insert.sort(), set.to_list().sort())
+});
+
+test("to_list do not return deleted elements", (t) => {
+    let to_insert = [1,2,3,4,5];
+    let to_delete = [4, 1];
+    let set = new LWWSet<number>();
+
+    to_insert.forEach(v => set.insert(v, 100));
+    to_delete.forEach(v => set.remove(v, 101));
+
+    let lookup_deleted = to_delete.filter(v => set.to_list().indexOf(v) >= 0)
+    
+    // there are no deleted elements 
+    t.true(lookup_deleted.length === 0)
+    
+});
+
+

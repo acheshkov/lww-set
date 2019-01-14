@@ -59,4 +59,11 @@ export class LWWSet<T> {
         return new_set;
     }
 
+    /**
+     * Return set as list. O(n)
+     */
+    to_list(): T[]{
+        return [...this.A.keys()].filter(v => this.lookup(v));
+    }
+
 }
